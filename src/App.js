@@ -1,23 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import MovieCard from "./MovieCard";
 
 function App() {
+  const [search, setSearch] = useState("");
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+  const API_KEY="7820d872";
+  const fetchMovies = async () => {
+    setLoading(true);
+    setHasSearched(true);
+
+  const response = await fetch(
+    `https://www.omdbapi.com/?s=${search}&apikey=${API_KEY}`
+    );
+    const data = await response.json();
+
+    setMovies(data.Search || []);
+    setLoading(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ padding: "20px", textAlign: "center" }}>
+      <h1>Movie Search App</h1>
+
+      <input
+      type="text"
+      placeholder="Search movies..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter"){
+        fetchMovies();
+        }
+      }}
+      style={{ padding: "10px", width: "250px", marginRight: "10px" }}
+      />    
+
+      <button 
+      onClick={fetchMovies}
+      style={{ padding: "10px 20px", cursor: "pointer" }}>
+        Search
+      </button>
+
+      {loading && <p>Loading...</p>}
+      {hasSearched && !loading && movies.length === 0 && (
+        <p>No movies found</p>
+      )}
+      
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 250px))",
+        gap: "20px",
+        justifyContent: "center",
+        marginTop: "20px"
+      }}>
+
+        {movies.map((movie) => (
+          <MovieCard key={movie.imdbID} movie={movie} />
+        ))}
+      </div>
     </div>
   );
 }
