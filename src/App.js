@@ -24,7 +24,13 @@ function App() {
     <div style={{ padding: "20px", textAlign: "center" }}>
       <h1>Movie Search App</h1>
 
-      <div style={{ marginBottom: "20px" }}>
+      <div
+        style={{
+          position: "relative",
+          display: "inline-block",
+          marginBottom: "20px",
+        }}
+      >
         <input
           type="text"
           placeholder="Search movies..."
@@ -35,37 +41,39 @@ function App() {
               fetchMovies();
             }
           }}
-          style={{ padding: "10px", width: "250px" }}
+          style={{
+            padding: "10px 35px 10px 10px", 
+            width: "250px",
+          }}
         />
 
         {search && (
-          <button
+          <span
             onClick={() => {
               setSearch("");
-              setMovies([]); 
-              setHasSearched(false); 
+              setMovies([]);
+              setHasSearched(false);
             }}
             style={{
-              marginLeft: "5px",
-              padding: "10px",
+              position: "absolute",
+              right: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
               cursor: "pointer",
+              fontSize: "14px",
             }}
           >
             X
-          </button>
+          </span>
         )}
-
-        <button
-          onClick={fetchMovies}
-          style={{
-            marginLeft: "10px",
-            padding: "10px 20px",
-            cursor: "pointer",
-          }}
-        >
-          Search
-        </button>
       </div>
+
+      <button
+        onClick={fetchMovies}
+        style={{ marginLeft: "10px", padding: "10px 20px", cursor: "pointer" }}
+      >
+        Search
+      </button>
 
       {loading && <p>Loading...</p>}
       {hasSearched && !loading && movies.length === 0 && <p>No movies found</p>}
