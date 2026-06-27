@@ -1,26 +1,30 @@
+import "./MovieCard.css";
+
+const FALLBACK_IMAGE = "https://via.placeholder.com/200x300?text=No+Poster";
+
 function MovieCard({ movie }) {
+  const poster =
+    movie.Poster && movie.Poster !== "N/A" ? movie.Poster : FALLBACK_IMAGE;
+
   return (
-    <div style={{
-      textAlign: "center",
-      border: "1px solid #ddd",
-      borderRadius: "10px",
-      padding: "10px",
-      backgroundColor: "#f9f9f9"
-    }}>
-      <h3 style={{ fontSize: "16px" }}>{movie.Title}</h3>
-
-      <img
-        src={movie.Poster}
-        alt={movie.Title}
-        style={{
-          width: "100%",
-          height: "300px",
-          objectFit: "cover",
-          borderRadius: "8px"
-        }}
-      />
-
-      <p>{movie.Year}</p>
+    <div className="movie-card" role="article" aria-label={movie.Title}>
+      <div className="movie-poster">
+        <img
+          src={poster}
+          alt={`${movie.Title} poster`}
+          loading="lazy"
+          onError={(e) => {
+            e.target.src = FALLBACK_IMAGE;
+          }}
+        />
+        <div className="movie-overlay">
+          <span className="movie-type">{movie.Type}</span>
+        </div>
+      </div>
+      <div className="movie-info">
+        <h3 className="movie-title">{movie.Title}</h3>
+        <p className="movie-year">{movie.Year}</p>
+      </div>
     </div>
   );
 }

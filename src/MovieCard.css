@@ -1,0 +1,93 @@
+.movie-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.movie-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+
+/* ── Poster ── */
+.movie-poster {
+  position: relative;
+  width: 100%;
+  padding-top: 150%; /* 2:3 aspect ratio */
+  overflow: hidden;
+  background: #111;
+}
+
+.movie-poster img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease, opacity 0.3s ease;
+}
+
+.movie-card:hover .movie-poster img {
+  transform: scale(1.05);
+  opacity: 0.75;
+}
+
+/* ── Overlay badge ── */
+.movie-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.movie-card:hover .movie-overlay {
+  opacity: 1;
+}
+
+.movie-type {
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+/* ── Info ── */
+.movie-info {
+  padding: 0.75rem;
+}
+
+.movie-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.3;
+}
+
+.movie-year {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .movie-info {
+    padding: 0.5rem;
+  }
+  .movie-title {
+    font-size: 0.8rem;
+  }
+}
