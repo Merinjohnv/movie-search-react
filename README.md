@@ -104,13 +104,4 @@ try {
 />
 ```
 
----
-
-##  Screenshot
-
-![Movie Search App](screenshot/Movie-Search-App.png)
-
-
----
-
 *Built by [Merin John](https://www.linkedin.com/in/merinjohnv) · [GitHub](https://github.com/Merinjohnv)*
